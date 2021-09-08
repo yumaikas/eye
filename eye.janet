@@ -28,6 +28,7 @@
     results)
 
 (defn monitor [dirs ch] 
+  # AN EVENT LOOP
   (forever 
     (def to-watch (array/concat @[] ;(map |(ls-r $) dirs)))
     (prompt :hit-change
@@ -83,6 +84,8 @@
 
 (defn usage [] 
   (print ```
+         eye is a polling filesystem watcher in Janet
+
          eye [list of dirs and files to watch] --cmd [command to run on change]
          ```))
 
@@ -95,7 +98,7 @@
 
 (defn main [_ & args]
   (def cmd-idx (index-of "--cmd" args))
-  
+
   (unless cmd-idx 
     (usage-error args))
 
